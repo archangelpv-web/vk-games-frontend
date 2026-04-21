@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Игры</title>
+  <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 </head>
 <body>
 
@@ -10,14 +11,15 @@
 <div id="games"></div>
 
 <script>
-const API = "https://vk-games-backend-production.up.railway.app";
+vkBridge.send('VKWebAppInit');
+
+const API = "https://YOUR-BACKEND.up.railway.app";
 
 async function loadGames() {
   const res = await fetch(API + "/games");
   const games = await res.json();
 
   const container = document.getElementById("games");
-
   container.innerHTML = "";
 
   games.forEach(g => {
@@ -53,9 +55,9 @@ async function register(gameId) {
 
   alert(
     "✅ Успешно!\n\n" +
-    "Игра: " + data.game.title + "\n" +
-    "Телефон: " + phone + "\n" +
-    "Участники: " + participants
+    data.game.title + "\n" +
+    phone + "\n" +
+    participants
   );
 }
 
